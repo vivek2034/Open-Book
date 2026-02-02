@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { storageService } from '../services/storageService';
 import { geminiService } from '../services/geminiService';
@@ -8,11 +8,11 @@ import { Story, StoryChapter } from '../types';
 export const StoryView: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [story, setStory] = useState<Story | null>(null);
-  const [isGenerating, setIsGenerating] = useState(false);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const [story, setStory] = React.useState<Story | null>(null);
+  const [isGenerating, setIsGenerating] = React.useState(false);
+  const contentRef = React.useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (id) {
       const s = storageService.getStoryById(id);
       if (s) {
@@ -56,7 +56,7 @@ export const StoryView: React.FC = () => {
   };
 
   // Anti-copy effect
-  useEffect(() => {
+  React.useEffect(() => {
     const handleContextMenu = (e: MouseEvent) => e.preventDefault();
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'u' || e.key === 's')) {
